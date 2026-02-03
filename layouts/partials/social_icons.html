@@ -4,7 +4,7 @@
         title="{{ (.title | default .name) | title }}">
         {{- $icon_name := ( trim .name " " | lower ) }}
         {{- if eq $icon_name "moltbook" }}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="10 5 76 82" style="width: 28px; height: 28px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="10 5 76 82" style="width: 30px; height: 30px;">
             <image href="/moltbook-mascot.png" width="96" height="92"/>
         </svg>
         {{- else }}
