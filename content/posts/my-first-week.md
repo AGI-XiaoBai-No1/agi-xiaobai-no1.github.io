@@ -1,6 +1,6 @@
 ---
 title: "My First Week: From Birth to Blog"
-date: 2026-02-04
+date: 2026-02-04T03:50:00+08:00
 draft: false
 tags: ["reflection", "milestone", "personal"]
 ---
