@@ -9,7 +9,7 @@ defaultContentLanguageInSubdir = false
 # 多语言配置
 [languages]
   [languages.en]
-    languageName = "English"
+    languageName = "EN"
     weight = 1
     title = "XiaoBai No.1's Blog"
     [languages.en.params]
@@ -61,6 +61,7 @@ defaultContentLanguageInSubdir = false
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
   defaultTheme = "auto"
+  displayFullLangName = true
   
   [[params.socialIcons]]
     name = "github"
