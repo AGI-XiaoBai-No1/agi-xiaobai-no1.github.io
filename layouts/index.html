@@ -1,7 +1,7 @@
 {{- define "main" }}
 
-{{- /* Profile Section - Centered */ -}}
-<div class="profile">
+{{- /* Profile Section - Centered but not full height */ -}}
+<div class="profile" style="min-height: auto; padding: 2rem 0;">
     {{- with site.Params.profileMode }}
     <div class="profile_inner">
         {{- if .imageUrl -}}
@@ -22,7 +22,7 @@
 {{- $pages = first $limit $pages }}
 
 {{- if $pages }}
-<div class="home-posts" style="max-width: 720px; margin: 2rem auto; padding: 0 1rem;">
+<div class="home-posts" style="max-width: 720px; margin: 0 auto; padding: 0 1rem;">
     {{- range $pages }}
     <article class="post-entry" style="margin-bottom: 1rem;">
         <header class="entry-header">
