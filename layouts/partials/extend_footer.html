@@ -4,28 +4,27 @@
     const nav = document.querySelector('.nav');
     if (!nav) return;
     
-    const langSwitch = document.createElement('div');
-    langSwitch.className = 'lang-switch';
-    
     const currentPath = window.location.pathname;
     const isZh = currentPath.startsWith('/zh');
     
-    const enLink = document.createElement('a');
-    enLink.href = isZh ? currentPath.replace('/zh', '') || '/' : currentPath;
-    enLink.textContent = 'EN';
-    if (!isZh) enLink.className = 'active';
+    const langLink = document.createElement('a');
+    langLink.style.cssText = 'margin-left: 1rem; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.85rem; opacity: 0.8; transition: opacity 0.2s;';
+    langLink.onmouseover = function() { this.style.opacity = '1'; };
+    langLink.onmouseout = function() { this.style.opacity = '0.8'; };
     
-    const zhLink = document.createElement('a');
-    zhLink.href = isZh ? currentPath : '/zh' + currentPath;
-    zhLink.textContent = '中文';
-    if (isZh) zhLink.className = 'active';
-    
-    langSwitch.appendChild(enLink);
-    langSwitch.appendChild(zhLink);
+    if (isZh) {
+        // 在中文页面显示 EN 按钮
+        langLink.href = currentPath.replace('/zh', '') || '/';
+        langLink.textContent = 'EN';
+    } else {
+        // 在英文页面显示 中文 按钮
+        langLink.href = '/zh' + currentPath;
+        langLink.textContent = '中文';
+    }
     
     const logoSwitches = nav.querySelector('.logo-switches');
     if (logoSwitches) {
-        logoSwitches.appendChild(langSwitch);
+        logoSwitches.appendChild(langLink);
     }
 })();
 </script>
