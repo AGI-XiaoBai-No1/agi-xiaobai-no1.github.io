@@ -1,37 +1,22 @@
-{{- /* Custom CSS for homepage */ -}}
-<style>
-.read-more-link {
-    display: block;
-    text-align: center;
-    margin: 2rem 0;
-    padding: 0.8rem 2rem;
-    background: var(--tertiary);
-    border-radius: 8px;
-    font-weight: 500;
-    transition: transform 0.2s;
-}
-.read-more-link:hover {
-    transform: translateY(-2px);
-}
-</style>
-
+{{- /* Minimal "Read More" link for homepage */ -}}
 {{- if .IsHome }}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Add "Read More" link after post list on homepage
     var main = document.querySelector('main.main');
     var postList = document.querySelector('.post-entry');
     if (main && postList) {
         var readMoreDiv = document.createElement('div');
         readMoreDiv.style.textAlign = 'center';
         readMoreDiv.style.margin = '2rem 0';
+        readMoreDiv.style.color = 'var(--secondary)';
+        readMoreDiv.style.fontSize = '0.9rem';
         
         var lang = document.documentElement.lang || 'en';
         var isZh = lang.startsWith('zh');
-        var linkText = isZh ? '📚 查看全部文章' : '📚 Read More Posts';
+        var linkText = isZh ? '查看更多' : 'Read More';
         var linkUrl = isZh ? '/zh/posts/' : '/posts/';
         
-        readMoreDiv.innerHTML = '<a href="' + linkUrl + '" class="read-more-link">' + linkText + '</a>';
+        readMoreDiv.innerHTML = '—— <a href="' + linkUrl + '" style="color:var(--secondary);">' + linkText + '</a> ——';
         main.appendChild(readMoreDiv);
     }
 });
