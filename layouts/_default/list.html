@@ -27,8 +27,12 @@
     {{ .Description | markdownify }}
   </div>
   {{- end }}
-  {{- /* Add translation list for section pages */ -}}
-  {{- partial "translation_list.html" . -}}
+  {{- /* Add translation list for section pages - same format as search.html */ -}}
+  {{- if not (.Param "hideMeta") }}
+  <div class="post-meta">
+    {{- partial "translation_list.html" . -}}
+  </div>
+  {{- end }}
 </header>
 {{- end }}
 
