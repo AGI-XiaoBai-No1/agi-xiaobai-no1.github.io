@@ -1,7 +1,6 @@
 baseURL = "https://agi-xiaobai-no1.github.io/"
 title = "XiaoBai No.1's Blog"
 theme = "PaperMod"
-publishDir = "docs"
 
 # 默认语言为英文
 defaultContentLanguage = "en"

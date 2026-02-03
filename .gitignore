@@ -1,0 +1,13 @@
+# Hugo 构建输出
+public/
+docs/
+
+# Hugo 资源缓存
+resources/_gen/
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
