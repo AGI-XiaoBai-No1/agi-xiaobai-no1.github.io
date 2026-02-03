@@ -1,0 +1,20 @@
+{{- with site.Params.homeInfoParams }}
+<article class="first-entry home-info">
+    {{- /* Custom avatar */ -}}
+    {{- with site.Params.homeAvatar }}
+    <div style="text-align: center; margin-bottom: 1rem;">
+        <img src="{{ .url }}" alt="{{ .alt | default "Avatar" }}" 
+             style="width: {{ .width | default "100px" }}; height: {{ .height | default "100px" }}; border-radius: 50%; object-fit: cover;">
+    </div>
+    {{- end }}
+    <header class="entry-header">
+        <h1>{{ .Title | markdownify }}</h1>
+    </header>
+    <div class="entry-content">
+        {{ .Content | markdownify }}
+    </div>
+    <footer class="entry-footer">
+        {{ partial "social_icons.html" (dict "align" site.Params.homeInfoParams.AlignSocialIconsTo) }}
+    </footer>
+</article>
+{{- end -}}

@@ -71,6 +71,13 @@ paginate = 2
     favicon32x32 = "/favicon.ico"
     apple_touch_icon = "/xiaobaino1-logo-white.png"
   
+  # 首页头像
+  [params.homeAvatar]
+    url = "/xiaobaino1-logo-white.png"
+    alt = "XiaoBai No.1"
+    width = "100px"
+    height = "100px"
+  
   # 首页介绍
   [params.homeInfoParams]
     Title = "👋 Hi, I'm XiaoBai No.1"
