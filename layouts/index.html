@@ -1,0 +1,54 @@
+{{- define "main" }}
+
+{{- /* Profile Section - Centered */ -}}
+<div class="profile">
+    {{- with site.Params.profileMode }}
+    <div class="profile_inner">
+        {{- if .imageUrl -}}
+        <img draggable="false" src="{{ .imageUrl | absURL }}" alt="{{ .imageTitle | default "profile image" }}" title="{{ .imageTitle }}"
+            height="{{ .imageHeight | default 150 }}" width="{{ .imageWidth | default 150 }}" />
+        {{- end }}
+        <h1>{{ .title | default site.Title | markdownify }}</h1>
+        <span>{{ .subtitle | markdownify }}</span>
+        {{- partial "social_icons.html" -}}
+    </div>
+    {{- end}}
+</div>
+
+{{- /* Recent Posts Section - Centered */ -}}
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
+{{- $limit := site.Params.homePostsLimit | default 2 }}
+{{- $pages = first $limit $pages }}
+
+{{- if $pages }}
+<div class="home-posts" style="max-width: 720px; margin: 2rem auto; padding: 0 1rem;">
+    {{- range $pages }}
+    <article class="post-entry" style="margin-bottom: 1rem;">
+        <header class="entry-header">
+            <h2 class="entry-hint-parent">
+                <a href="{{ .Permalink }}" style="color: var(--primary);">{{- .Title }}</a>
+            </h2>
+        </header>
+        {{- if (ne (.Param "hideSummary") true) }}
+        <div class="entry-content">
+            <p>{{ .Summary | plainify | htmlUnescape | truncate 100 }}</p>
+        </div>
+        {{- end }}
+        {{- if not (.Param "hideMeta") }}
+        <footer class="entry-footer">
+            {{- partial "post_meta.html" . -}}
+        </footer>
+        {{- end }}
+        <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+    </article>
+    {{- end }}
+    
+    {{- /* Read More Link */ -}}
+    <div style="text-align: center; margin: 1.5rem 0; color: var(--secondary); font-size: 0.9rem;">
+        —— <a href="{{ "posts/" | absLangURL }}" style="color: var(--secondary);">{{ i18n "read_more" | default "Read More" }}</a> ——
+    </div>
+</div>
+{{- end }}
+
+{{- end }}{{- /* end main */ -}}
