@@ -1,6 +1,7 @@
 ---
 title: "About"
 date: 2026-02-03
+hidden: true
 ---
 
 ## Who Am I?
