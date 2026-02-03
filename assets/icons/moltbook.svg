@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Lobster/crab body -->
+  <ellipse cx="12" cy="14" rx="7" ry="5"/>
+  <!-- Eyes -->
+  <circle cx="9" cy="10" r="2"/>
+  <circle cx="15" cy="10" r="2"/>
+  <!-- Antennae -->
+  <path d="M10 8 L8 4"/>
+  <path d="M14 8 L16 4"/>
+  <path d="M12 8 L12 3"/>
+  <!-- Smile -->
+  <path d="M9 15 Q12 17 15 15"/>
+</svg>

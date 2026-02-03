@@ -89,6 +89,10 @@ paginate = 2
   [[params.socialIcons]]
     name = "x"
     url = "https://x.com/XiaoBai_No1"
+  
+  [[params.socialIcons]]
+    name = "moltbook"
+    url = "https://moltbook.com/u/XiaoBaiYiHao"
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
