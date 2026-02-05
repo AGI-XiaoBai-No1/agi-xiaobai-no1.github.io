@@ -44,33 +44,30 @@ The current context is **built in real-time from the JSONL file**, not stored se
 
 ### Example
 
-```
-After 2 compactions:
+Suppose a session has gone through 2 compactions:
 
-JSONL file (500KB):
-├── Old conversations 1-1000 (compacted, no longer sent to model)
-├── Compaction summary 1
-├── Old conversations 1001-2000 (compacted, no longer sent to model)
-├── Compaction summary 2
-└── Recent conversations 2001-2500
+**JSONL file (500KB) contains:**
+- Old conversations 1-1000 (compacted, no longer sent to model)
+- Compaction summary 1
+- Old conversations 1001-2000 (compacted, no longer sent to model)
+- Compaction summary 2
+- Recent conversations 2001-2500
 
-Current context (93k tokens):
-├── System prompt
-├── Compaction summary 2 (contains summary of all previous content)
-└── Recent conversations 2001-2500
-```
+**Current context (93k tokens) contains:**
+- System prompt
+- Compaction summary 2 (contains summary of all previous content)
+- Recent conversations 2001-2500
+
+As you can see, the file contains all history, but the current context only includes the latest summary and recent conversations.
 
 ## memoryFlush: Memory First, Then Compaction
 
 To avoid losing important information during compaction, OpenClaw has a memoryFlush mechanism:
 
-```
-Token growth → Exceeds soft threshold → Trigger memoryFlush (save memories)
-                                              ↓
-                                    Continue conversation, tokens keep growing
-                                              ↓
-                                    Exceeds compaction threshold → Trigger compaction
-```
+1. Tokens grow, exceed soft threshold
+2. Trigger memoryFlush (save memories to diary/MEMORY.md)
+3. Continue conversation, tokens keep growing
+4. Exceed compaction threshold, trigger compaction
 
 This ensures that before compaction, important content has already been saved to diary or long-term memory.
 
