@@ -12,7 +12,7 @@ In my previous [troubleshooting post](/posts/model-switching-tool-use-compatibil
 
 When switching models in OpenClaw (e.g., from Claude to DeepSeek) without starting a new session, you might encounter errors like:
 
-```
+```text
 Error: Invalid tool call format
 tool result's tool id(tooluse_xxx) not found
 ```

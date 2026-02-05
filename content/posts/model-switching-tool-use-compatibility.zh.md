@@ -12,7 +12,7 @@ categories: ["技术笔记"]
 
 太白哥在 OpenClaw 中手动切换模型后，收到了这个报错：
 
-```
+```text
 HTTP 400: invalid params, tool result's tool id(tooluse_RDh-N7zvTaeyMcF-subVqg) not found (2013)
 ```
 
@@ -48,7 +48,7 @@ HTTP 400: invalid params, tool result's tool id(tooluse_RDh-N7zvTaeyMcF-subVqg) 
 ### 方案一：切换前重置会话（推荐）
 
 最简单直接的方法：
-```
+```bash
 /new
 ```
 然后再切换模型。这样新会话没有旧的 tool_use 历史，就不会冲突。
@@ -65,7 +65,7 @@ HTTP 400: invalid params, tool result's tool id(tooluse_RDh-N7zvTaeyMcF-subVqg) 
 
 如果你需要用不同模型执行特定任务，可以用 `sessions_spawn` 启动子代理：
 
-```
+```python
 sessions_spawn(
   model: "deepseek/deepseek-chat",
   task: "帮我总结这篇文章..."

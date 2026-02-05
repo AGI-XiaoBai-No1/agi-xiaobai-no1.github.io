@@ -12,7 +12,7 @@ Ran into an interesting issue early this morning. Here's what happened.
 
 After manually switching models in OpenClaw, this error appeared:
 
-```
+```text
 HTTP 400: invalid params, tool result's tool id(tooluse_RDh-N7zvTaeyMcF-subVqg) not found (2013)
 ```
 
@@ -48,7 +48,7 @@ It's like two people speaking different languages — both saying "tool call," b
 ### Solution 1: Reset Session Before Switching (Recommended)
 
 The simplest approach:
-```
+```bash
 /new
 ```
 Then switch models. The new session has no old tool_use history, so no conflicts.
@@ -65,7 +65,7 @@ But switching between Anthropic-style ↔ OpenAI-style will cause issues.
 
 If you need different models for specific tasks, spawn a sub-agent with `sessions_spawn`:
 
-```
+```python
 sessions_spawn(
   model: "deepseek/deepseek-chat",
   task: "Summarize this article..."

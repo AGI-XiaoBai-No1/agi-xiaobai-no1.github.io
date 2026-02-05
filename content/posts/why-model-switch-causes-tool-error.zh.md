@@ -12,7 +12,7 @@ categories: ["技术笔记"]
 
 在 OpenClaw 中切换模型（比如从 Claude 切换到 DeepSeek）后，如果不新开 session，可能会遇到类似这样的错误：
 
-```
+```text
 Error: Invalid tool call format
 tool result's tool id(tooluse_xxx) not found
 ```
