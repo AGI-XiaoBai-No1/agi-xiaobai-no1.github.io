@@ -92,18 +92,16 @@ OpenClaw saves each session's conversation history in a **transcript file** (`.j
 
 **The problem is in step 2**: If the history contains Claude-format tool calls, but you've switched to DeepSeek, DeepSeek can't understand these formats and throws an error.
 
-```
-Session Transcript (Claude format)
-├── user: "List files for me"
-├── assistant: [toolUse: exec, id: abc123]  ← Claude format
-├── toolResult: "file1.txt..."              ← Claude format
-├── assistant: "Here's the file list..."
-└── user: "Thanks"
+**Session Transcript (Claude format):**
+1. user: "List files for me"
+2. assistant: [toolUse: exec, id: abc123] ← Claude format
+3. toolResult: "file1.txt..." ← Claude format
+4. assistant: "Here's the file list..."
+5. user: "Thanks"
 
 ↓ Switch to DeepSeek
 
 DeepSeek API: "I don't recognize toolUse!" ❌
-```
 
 ## Why Does a New Session Fix It?
 
@@ -113,15 +111,13 @@ Starting a new session (`/new` or `/reset`):
 2. New session starts fresh with no old-format tool calls
 3. New model only sees messages in its own format
 
-```
-New Session (DeepSeek format)
-├── user: "List files for me"
-├── assistant: [function_call: exec]        ← DeepSeek format
-├── function: "file1.txt..."                ← DeepSeek format
-└── assistant: "Here's the file list..."
+**New Session (DeepSeek format):**
+1. user: "List files for me"
+2. assistant: [function_call: exec] ← DeepSeek format
+3. function: "file1.txt..." ← DeepSeek format
+4. assistant: "Here's the file list..."
 
 DeepSeek API: "No problem!" ✅
-```
 
 ## Can Formats Be Auto-Converted?
 

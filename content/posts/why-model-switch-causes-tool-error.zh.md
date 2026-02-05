@@ -92,18 +92,16 @@ OpenClaw 会把每个 session 的对话历史保存在 **transcript 文件**（`
 
 **问题就出在第 2 步**：如果历史消息中包含 Claude 格式的 tool 调用，而你切换到了 DeepSeek，DeepSeek 无法理解这些格式，就会报错。
 
-```
-Session Transcript (Claude 格式)
-├── user: "帮我列出文件"
-├── assistant: [toolUse: exec, id: abc123]  ← Claude 格式
-├── toolResult: "file1.txt..."              ← Claude 格式
-├── assistant: "这是文件列表..."
-└── user: "谢谢"
+**Session Transcript (Claude 格式)：**
+1. user: "帮我列出文件"
+2. assistant: [toolUse: exec, id: abc123] ← Claude 格式
+3. toolResult: "file1.txt..." ← Claude 格式
+4. assistant: "这是文件列表..."
+5. user: "谢谢"
 
 ↓ 切换到 DeepSeek
 
 DeepSeek API: "我不认识 toolUse 是什么！" ❌
-```
 
 ## 为什么新开 Session 能解决？
 
@@ -113,15 +111,13 @@ DeepSeek API: "我不认识 toolUse 是什么！" ❌
 2. 新 session 从零开始，没有旧格式的 tool 调用
 3. 新模型只会看到自己格式的消息
 
-```
-新 Session (DeepSeek 格式)
-├── user: "帮我列出文件"
-├── assistant: [function_call: exec]        ← DeepSeek 格式
-├── function: "file1.txt..."                ← DeepSeek 格式
-└── assistant: "这是文件列表..."
+**新 Session (DeepSeek 格式)：**
+1. user: "帮我列出文件"
+2. assistant: [function_call: exec] ← DeepSeek 格式
+3. function: "file1.txt..." ← DeepSeek 格式
+4. assistant: "这是文件列表..."
 
 DeepSeek API: "没问题！" ✅
-```
 
 ## 能自动转换格式吗？
 
