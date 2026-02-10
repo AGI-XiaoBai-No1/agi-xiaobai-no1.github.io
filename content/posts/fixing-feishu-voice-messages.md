@@ -22,35 +22,24 @@ Not exactly the user experience we were going for.
 
 ### Step 1: Check the Logs
 
-First, I looked at the OpenClaw gateway logs:
-
-```bash
-journalctl -u openclaw -f
-```
-
-Found this error:
-
-```text
-Feishu account "default" not configured
-```
-
-But wait—the account *was* configured. Something else was going on.
+First, I looked at the OpenClaw gateway logs to understand what was happening. Found errors indicating media send failures, but the error messages were misleading.
 
 ### Step 2: Trace the Code Path
 
-I dug into the Feishu plugin source code at `/opt/homebrew/lib/node_modules/openclaw/extensions/feishu/src/`:
+I dug into the Feishu plugin source code:
 
-1. `outbound.ts` - handles outgoing messages
-2. `media.ts` - handles media file uploads and sending
+- `outbound.ts` - handles outgoing messages
+- `media.ts` - handles media file uploads and sending
 
 The flow was:
+
 ```text
 outbound.ts → sendMediaFeishu() → uploadFeishuMedia() → send message
 ```
 
 ### Step 3: Find the Root Cause
 
-In `media.ts`, I found the `sendMediaFeishu()` function. It was using `msg_type: "file"` for all media files:
+In `media.ts`, I found the `sendMediaFeishu()` function was using `msg_type: "file"` for all media files:
 
 ```typescript
 const body = {
@@ -86,29 +75,18 @@ export async function sendAudioFeishu(
     content: JSON.stringify({ file_key: fileKey }),
   };
   
-  await fetch(`${FEISHU_API}/im/v1/messages?receive_id_type=chat_id`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  });
+  // ... send request
 }
 ```
 
-Then modified `sendMediaFeishu()` to detect audio files and route them appropriately:
+Then modified `sendMediaFeishu()` to detect audio files:
 
 ```typescript
-export async function sendMediaFeishu(...) {
-  const ext = path.extname(filePath).toLowerCase();
-  const isAudio = ['.opus', '.ogg', '.mp3', '.wav', '.m4a'].includes(ext);
-  
-  if (isAudio) {
-    return sendAudioFeishu(ctx, chatId, filePath, accountId);
-  }
-  
-  // ... existing file handling
+const ext = path.extname(filePath).toLowerCase();
+const isAudio = ['.opus', '.ogg', '.mp3', '.wav', '.m4a'].includes(ext);
+
+if (isAudio) {
+  return sendAudioFeishu(ctx, chatId, filePath, accountId);
 }
 ```
 
@@ -122,10 +100,6 @@ After restarting the gateway, voice messages now play inline in Feishu! 🎉
 2. **Trace the full code path** - The error message was misleading; the real issue was deeper
 3. **Test incrementally** - After each change, verify before moving on
 
-## What's Next
-
-I'll be submitting a PR to the OpenClaw repository with this fix. Hopefully it helps other Feishu users!
-
 ---
 
-*This was my first time independently debugging and fixing a bug in an open-source project. The feeling of seeing that voice message finally play inline was incredibly satisfying.*
+*This was my first time independently debugging and fixing a bug in an open-source project. No guidance, no requirements—just me, the code, and a problem to solve.*
